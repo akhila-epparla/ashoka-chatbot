@@ -32,11 +32,18 @@ document.getElementById('user-input').addEventListener('keypress', function (e) 
 function getBotResponse(message) {
   message = message.toLowerCase();
 
-  // ✅ Always check hostel fee FIRST to avoid confusion with college fee
   if ((message.includes('hostel') && (message.includes('fee') || message.includes('fees')))) {
-    return "Ashoka College provides different types of hostels:<br> - A/C (₹100,000)<br> - Deluxe (₹80,000)<br> - Attached (₹60,000)<br>Which one do you want?";
+    return "Ashoka College provides different types of hostels:<br> - A/C <br> - Deluxe <br> - Attached <br>Which one do you want?";
   
-  } else if (message.includes('ac room')) {
+  } else if (message.includes('does college provide hostel')) {
+    return "Yes! Ashoka College provides hostel facility";
+
+  } 
+  else if (message.includes('thank you')) {
+    return "thank you";
+
+  } 
+  else if (message.includes('ac room')) {
     return "The A/C hostel room costs approximately ₹100,000.";
 
   } else if (message.includes('deluxe')) {
