@@ -5,71 +5,54 @@ function sendMessage() {
 
   const chatBox = document.getElementById('chat-box');
 
-  // Add user's message (right side)
-  const userMessage = document.createElement('div');
-  userMessage.className = 'message user';
-  userMessage.textContent = message;
-  chatBox.appendChild(userMessage);
+  const userMsg = document.createElement('div');
+  userMsg.className = 'message user';
+  userMsg.textContent = message;
+  chatBox.appendChild(userMsg);
   chatBox.scrollTop = chatBox.scrollHeight;
 
   input.value = '';
 
-  // Simulate bot response (left side)
   setTimeout(() => {
-    const botMessage = document.createElement('div');
-    botMessage.className = 'message bot';
-    botMessage.innerHTML = getBotResponse(message);
-    chatBox.appendChild(botMessage);
+    const botMsg = document.createElement('div');
+    botMsg.className = 'message bot';
+    botMsg.innerHTML = getBotResponse(message);
+    chatBox.appendChild(botMsg);
     chatBox.scrollTop = chatBox.scrollHeight;
   }, 500);
 }
-document.getElementById('user-input').addEventListener('keypress', function (e) {
+
+document.getElementById('user-input').addEventListener('keypress', function(e) {
   if (e.key === 'Enter') {
-    e.preventDefault();  // Prevent form submission if inside a form
-    sendMessage();       // Call your existing sendMessage() function
+    e.preventDefault();
+    sendMessage();
   }
 });
 
+function getBotResponse(message) {
+  message = message.toLowerCase();
 
-function getBotResponse(userMessage) {
-  if (userMessage.toLowerCase().includes('fees')) {
+  if (message.includes('fee') && message.includes('hostel')) {
+    return "Ashoka College provides different types of hostels: A/C (₹100,000), Deluxe (₹80,000), Attached (₹60,000). Which one do you want?";
+  } else if (message.includes('ac room')) {
+    return "The A/C room costs approximately ₹100,000.";
+  } else if (message.includes('deluxe')) {
+    return "The Deluxe room costs approximately ₹80,000.";
+  } else if (message.includes('attached')) {
+    return "The Attached room costs approximately ₹60,000.";
+  } else if (message.includes('fees') || message.includes('fee')) {
     return "The fees for B.Tech programs is approximately ₹85,000 per year.";
-  } else if (userMessage.toLowerCase().includes('admission')) {
-    return "Admissions are open! Visit our college website or contact the admissions office.";
-  }else if (userMessage.toLowerCase().includes('courses offered') || userMessage.toLowerCase().includes('what courses') || userMessage.toLowerCase().includes('programs available')) {
-    return "Ashoka Women's Engineering College offers B.Tech, MCA, and MBA programs.";
-}
-else if (userMessage.toLowerCase().includes('branches in btech') || userMessage.toLowerCase().includes('btech branches')) {
-    return "We offer B.Tech in branches like CSE-AI, CSE, ECE, EEE, and more.";
-}
-    else if (userMessage.toLowerCase().includes('eligibility for btech')) {
-    return "For B.Tech, candidates must have passed 12th with a background in Mathematics, Physics, and Chemistry.";
-}
-    else if (userMessage.toLowerCase().includes('bus facility') || userMessage.toLowerCase().includes('transport')) {
-    return "Yes, Ashoka Women's Engineering College provides bus facilities from various areas for the convenience of students.";
-}
-    else if (userMessage.toLowerCase().includes('is ashoka college provides hostel')) {
-    return "ya ashoka college provides hostel also";
-  }
-    else if (userMessage.toLowerCase().includes('what is the fee for  the hostel')) {
-    return "actually ashoka college provides the different types of hostels like AC,Deluxe,Attached wash rooms,.....etc which type of room you want ? ";
-  } 
-   else if (userMessage.toLowerCase().includes('which type of room you want?')) {
-    return "i want ac room";
-  }
-   else if (userMessage.toLowerCase().includes('i want ac room')) {
-    return "The fee of the A/C room is approximately ₹100,000";
-  }
-   else if (userMessage.toLowerCase().includes('i want deluxe room')) {
-    return "The fee of the Deluxe room is approximately ₹80,000 ";
-  }
-   else if (userMessage.toLowerCase().includes('i want attached room')) {
-    return "The fee of the Attached room is approximately ₹60,000 ";
-  }
- else if (userMessage.toLowerCase().includes('website') || userMessage.toLowerCase().includes('official site')) {
-  return 'You can visit our official website here: <a href="https://www.ashokacollege.in" target="_blank">ashokacollege.in</a>';
-}
-    else {
-    return "I'm here to help with information about Ashoka Women's Engineering College.";
+  } else if (message.includes('courses') || message.includes('programs')) {
+    return "We offer B.Tech, MCA, and MBA programs.";
+  } else if (message.includes('admission')) {
+    return "Admissions are open! Visit <a href='https://www.ashokacollege.in' target='_blank'>ashokacollege.in</a> for details.";
+  } else if (message.includes('branches') || message.includes('btech')) {
+    return "We offer CSE, CSE-AI, ECE, EEE and more.";
+  } else if (message.includes('bus') || message.includes('transport')) {
+    return "Yes, we provide bus facilities from multiple locations.";
+  } else if (message.includes('website') || message.includes('official')) {
+    return 'Visit our official website: <a href="https://www.ashokacollege.in" target="_blank">ashokacollege.in</a>';
+  } else {
+    return "I'm here to help! Please ask about fees, courses, hostel, admissions, or website.";
   }
 }
